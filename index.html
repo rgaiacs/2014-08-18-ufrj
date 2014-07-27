@@ -12,111 +12,140 @@ latlng: -22.954318,-43.174687
 registration: open
 instructor: ["Alex Viana", "Raniere Silva"]
 helper: []
-contact: admin@software-carpentry.org
+contact: raniere@ime.unicamp.br
 ---
+<!--
+    Edite os valores nas opções acima de forma adequada ao seu workshop.
+    Por favor utilize três letras para o nome dos meses no campo 'humandata'.
+-->
+
+<div class="hero-unit">
+  <div class="row-fluid">
+    <div class="span10">
+      <h2>{{page.venue}}</h2>
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span6">
+      <p>{{page.humandate}}</p>
+      <p>{% if page.humantime %}{{page.humantime}}{% endif %}</p>
+    </div>
+    <div class="span6">
+      <p>
+      <strong>Instrutores:</strong>
+      {% if page.instructor %}
+      {{page.instructor | join: ', ' %}}
+      {% else %}
+      a serem anunciados.
+      {% endif %}
+      </p>
+      {% if page.helper %}
+      <p>
+      <strong>Auxiliares:</strong>
+      {{page.helper | join: ', ' %}}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Remova o block abaixo. -->
+<div align="center">
+  <p><strong><em>
+      Essa página é o template para o página inicial do seu workshop.
+      <br/>
+      Por favor veja
+      <a href="//github.com/swcarpentry/bc">github.com/swcarpentry/bc</a>
+      para instruções de como criar um repositório para o seu workshop.
+  </em></strong></p>
+</div>
+
+<p><a href="index-en.html">English version</a></p>
 
 <!--
-    This block includes the Eventbrite registration widget if 'eventbrite' has been set in the header.
+    Esse bloco inclui o registro pelo Eventbrite se 'eventbrite' foi configurado
+    nas informações iniciais.
 -->
 {% if page.eventbrite %}
 <iframe src="//www.eventbrite.com/tickets-external?eid={{page.eventbrite}}&ref=etckt" frameborder="0" width="100%" scrolling="auto"></iframe>
 {% endif %}
 
-<h2>General Information</h2>
+<h2>Informações Gerais</h2>
 
 <p>
-  <a href="//software-carpentry.org">Software Carpentry</a>'s mission
-  is to help scientists and engineers become more productive
-  by teaching them basic lab skills for computing
-  like program design, version control, data management, and task automation.
-  This two-day hands-on bootcamp will cover basic concepts and tools;
-  participants will be encouraged to help one another
-  and to apply what they have learned to their own research problems.
+  A missão da <a href="//software-carpentry.org">Software Carpentry</a>
+  é ajudar cientistas e engenheiros a serem mais produtivos ao ensinar
+  habilidades computacionais básicas como programação, controle de versão,
+  gerenciamento de dados e automatização de tarefas. Este workshop irá cobrir
+  conceitos e ferramentas básicas.
 </p>
-
-<!-- This block displays the instructors' names if they are available. -->
-{% if page.instructor %}
 <p>
-  <strong>Instructors:</strong>
-  {{page.instructor | join: ', ' %}}
+  Os participantes são encorajados a ajudar uns
+  aos outros e aplicar o que aprenderem em suas próprias pesquisas.
 </p>
-{% endif %}
-
-<!-- This block displays the helpers' names if they are available. -->
-{% if page.helper %}
-<p>
-  <strong>Helpers:</strong>
-  {{page.helper | join: ', ' %}}
-</p>
-{% endif %}
 
 <!--
-    Modify this block to reflect the target audience for your bootcamp.
-    In particular, if it is only open to people from a particular institution,
-    or if specialized prerequisite knowledge is required, please mention that.
+    Modifique esse bloco para refletir o publico alvo do seu workshop.
+    Em particular, se ele é aberto apenas para pessoas de uma instituição em
+    particular ou se algum conhecimento é requisitado.
 -->
 <p>
-  <strong>Who:</strong>
-  The course is aimed at graduate students and other researchers.
+  <strong>Público:</strong>
+  Este curso é destinado a professores e alunos de pós-graduação.
 </p>
 
 <!--
-    This block displays the address and links to a map showing directions.
+    Esse bloco mostra o endereço e links para mapas com direções.
 -->
 {% if page.latlng %}
 <p>
-  <strong>Where:</strong>
+  <strong>Onde:</strong>
   {{ page.address }}.
-  Get directions with
+  Direções podem ser obtidas no
   <a href="//www.openstreetmap.org/?mlat={{ page.latlng | replace:',','&mlon=' }}&zoom=16">OpenStreetMap</a>
-  or
+  ou
   <a href="//maps.google.com/maps?q={{ page.latlng }}">Google Maps</a>.
 </p>
 {% endif %}
 
 <!--
-    Modify the block below if there are any special requirements.
+    Modifique esse bloco se existe alguma requisito especial.
 -->
 <p>
-  <strong>Requirements:</strong>
-  <ul>
-    <li>Registration must be done in advance at <a
-      href="http://www.cienciaaberta.net/encontro2014/oficinas/">this web
-      site</a>.</li>
-    <li>Participants must bring a laptop with a few specific software packages
-    installed (listed below).</li>
-  </ul>
+  <strong>Requisitos:</strong>
+  Participantes devem trazer seu notebook com os programas listados abaixo já
+  instalados.
 </p>
 
 <!--
-    This block automatically inserts a contact email address if one has been specified for the page.
-    If one hasn't, this block inserts the generic contact address for Software Carpentry.
+    Esse block automaticamente adiciona informações de contato por email se essa
+    informação foi fornecida ou utiliza o contato genérico da Software Carpentry.
 -->
 <p>
-  <strong>Contact</strong>:
-  Please mail
+  <strong>Contatos:</strong>:
+  Para maiores informações enviar enviar um email para
   {% if page.contact %}
     <a href='mailto:{{page.contact}}'>{{page.contact}}</a>
   {% else %}
     <a href='mailto:{{site.contact}}'>{{site.contact}}</a>
   {% endif %}
-  for more information.
+  .
 </p>
 
 <hr/>
 
 <!--
-    Edit this block to show the schedule for your bootcamp.
+    Edite esse bloco para mostrar o cronograma do seu workshop.
 -->
-<h2>Schedule</h2>
+<h2>Programação</h2>
 
 <div class="row-fluid">
   <div>
     <h3>Day 1</h3>
     <table class="table table-striped">
-      <tr> <td>09:00</td> <td>Introduction</td> </tr>
-      <tr> <td><em>10:30</em></td> <td><em>Coffee break</em></td> </tr>
-      <tr> <td>01:00</td> <td>Exercises</td> </tr>
+      <tr> <td>09:00</td> <td>Introdução</td> </tr>
+      <tr> <td><em>10:30</em></td> <td><em>Intervalo</em></td> </tr>
+      <tr> <td>01:00</td> <td>Exercícios</td> </tr>
     </table>
   </div>
 </div>
@@ -124,42 +153,42 @@ contact: admin@software-carpentry.org
 <hr/>
 
 <!--
-    Edit this block to show what topics will be covered.
+    Edite esse block para mostrar os tópicos que serão abordados.
 -->
-<h2>Syllabus</h2>
+<h2>Programa</h2>
 
 <div class="row-fluid">
   <div>
-    <h3>Version Control with Git</h3>
+    <h3>Controle de Versão com Git</h3>
     <ul>
-      <li>Creating a repository</li>
-      <li>Recording changes to files: <code>add</code>, <code>commit</code>, ...</li>
-      <li>Viewing changes: <code>status</code>, <code>diff</code>, ...</li>
-      <li>Ignoring files</li>
-      <li>Working on the web: <code>clone</code>, <code>pull</code>, <code>push</code>, ...</li>
-      <li>Resolving conflicts</li>
-      <li>Open licenses</li>
-      <li>Where to host work, and why</li>
-      <li><a href="novice/ref/02-git.html">Reference...</a></li>
+      <li>Criando repositórios</li>
+      <li>Salvando mudanças em arquivos: <code>add</code>, <code>commit</code>,
+        ...</li>
+      <li>Visualizando alterações: <code>status</code>, <code>diff</code>, ...</li>
+      <li>Ignorando arquivos</li>
+      <li>Trabalhando com a web: <code>clone</code>, <code>pull</code>,
+        <code>push</code>, ...</li>
+      <li>Resolvendo conflitos</li>
+      <li>Licenças Abertas</li>
+      <li>Onde hospedar seu trabalho e porque</li>
+      <li><a href="novice/ref/02-git.html">Referências...</a></li>
     </ul>
   </div>
 </div>
 
 <hr/>
 
-<!--
-    Edit the setup instructions in _includes/setup.html to reflect your bootcamp.
-    (In particular, most bootcamps teach either Python or R, not both.)
--->
-
-<h2>Setup</h2>
+<h2>Configuração</h2>
 
 <p>
-  To participate in a Software Carpentry bootcamp, 
-  you will need working copies of the software described below.
-  Please make sure to install everything
-  (or at least to download the installers)
-  <em>before</em> the start of your bootcamp.
+  Para participar de um workshop da Software Carpentry, você vai precisar dos
+  seguintes programas instalados. Por favor, tenha certeza de ter instalado
+  todos os programas ou de ao menos baixar os instaladores <em>antes</em> do
+  workshop começar.
 </p>
 
-{% include setup.html %}
+<!--
+    Edite as instruções em _includes/setup-pt.html para refletir seu workshop.
+    (Em particular, a maioria dos workshop ensina Python ou R e não ambos.)
+-->
+{% include setup-pt.html %}
