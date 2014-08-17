@@ -1,6 +1,6 @@
 ---
 layout: lesson
-root: ../..
+root: ../../../..
 title: Open Science
 ---
 <div class="objectives" markdown="1">

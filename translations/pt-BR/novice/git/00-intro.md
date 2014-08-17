@@ -1,6 +1,6 @@
 ---
 layout: lesson
-root: ../..
+root: ../../../..
 title: Introdução ao Controle de Versão
 ---
 Lobisomem e Drácula foram contratados pelo Universal Missions

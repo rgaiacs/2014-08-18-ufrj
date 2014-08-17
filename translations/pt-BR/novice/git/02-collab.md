@@ -1,6 +1,6 @@
 ---
 layout: lesson
-root: ../..
+root: ../../../..
 title: Collaborating
 ---
 <div class="objectives" markdown="1">

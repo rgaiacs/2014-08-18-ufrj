@@ -1,6 +1,6 @@
 ---
 layout: lesson
-root: ../..
+root: ../../../..
 title: Uma Melhor Solução de Backup
 ---
 <div class="objectives" markdown="1">

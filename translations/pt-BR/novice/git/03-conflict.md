@@ -1,6 +1,6 @@
 ---
 layout: lesson
-root: ../..
+root: ../../../..
 title: Conflitos
 ---
 <div class="objectives" markdown="1">
