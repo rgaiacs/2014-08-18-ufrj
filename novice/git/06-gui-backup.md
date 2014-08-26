@@ -108,7 +108,7 @@ Note that the file at the "Staged Changes" box disappear and if we select
 "Rescan" no file appears at the "Unstaged Changes" box.
 
 If we want to know what we've done recently,
-we can ask select "Repository" -> "Visualize master's History" from the menu
+we can ask select "Repository" -> "Visualize All Branch History" from the menu
 bar:
 
 <img src="img/git-gui-log01.jpg" />
@@ -181,103 +181,43 @@ but not yet committed.
 
 <img src="img/git-staging-area.svg" alt="The Git Staging Area" />
 
-After staged our changes let commit it
-and look at the history of what we've done so far:
+Let's look at the history of what we've done so far:
 
 <img src="img/git-gui-log02.jpg" />
 
+Let's watch as our changes to a file move from our editor to the staging area
+and into long-term storage. First, we'll add another line to the file:
+
+<img src="img/git-gui-mars02.jpg" />
+
+After rescan our directory:
+
+<img src="img/git-gui-stage01a.jpg" />
+
+<img src="img/git-gui-stage01b.jpg" />
+
+Note the red dot before "Local uncommited changes, not checked in to index".
+Now let's put that change in the staging area:
+
+<img src="img/git-gui-stage02a.jpg" />
+
+<img src="img/git-gui-stage02b.jpg" />
+
+Note the blue dot before "Local changes checked in to index but not committed".
+It shows us the difference between the last committed change and what's in the
+staging area. Let's save our changes:
+
+<img src="img/git-gui-stage03.jpg" />
+
+and look at the history of what we've done so far:
+
+<img src="img/git-gui-stage04.jpg" />
+
 ### Exploring History
 
-If we want to see what we changed when,
-we use `git diff` again,
-but refer to old versions
-using the notation `HEAD~1`, `HEAD~2`, and so on:
-
-~~~
-$ git diff HEAD~1 mars.txt
-~~~
-{:class="in"}
-~~~
-diff --git a/mars.txt b/mars.txt
-index 315bf3a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-~~~
-{:class="out"}
-~~~
-$ git diff HEAD~2 mars.txt
-~~~
-{:class="in"}
-~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,3 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-~~~
-{:class="out"}
-
-In this way,
-we build up a chain of revisions.
-The most recent end of the chain is referred to as `HEAD`;
-we can refer to previous revisions using the `~` notation,
-so `HEAD~1` (pronounced "head minus one")
-means "the previous revision",
-while `HEAD~123` goes back 123 revisions from where we are now.
-
-We can also refer to revisions using
-those long strings of digits and letters
-that `git log` displays.
-These are unique IDs for the changes,
-and "unique" really does mean unique:
-every change to any set of files on any machine
-has a unique 40-character identifier.
-Our first commit was given the ID
-f22b25e3233b4645dabd0d81e651fe074bd8e73b,
-so let's try this:
-
-~~~
-$ git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
-~~~
-{:class="in"}
-~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,3 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-~~~
-{:class="out"}
-
-That's the right answer,
-but typing random 40-character strings is annoying,
-so Git lets us use just the first few:
-
-~~~
-$ git diff f22b25e mars.txt
-~~~
-{:class="in"}
-~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,3 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-~~~
-{:class="out"}
+If we want to see what we changed when, we just need to select (left click) the
+last revision (the one with the `master` label) and right at the desire
+revision. Choose the first option, `Diff this -> selected`.
 
 ### Recovering Old Versions
 
@@ -286,62 +226,24 @@ we can save changes to files and see what we've changed---how
 can we restore older versions of things?
 Let's suppose we accidentally overwrite our file:
 
-~~~
-$ nano mars.txt
-$ cat mars.txt
-~~~
-{:class="in"}
-~~~
-We will need to manufacture our own oxygen
-~~~
-{:class="out"}
+<img src="img/git-gui-recovery01.jpg" />
 
-`git status` now tells us that the file has been changed,
+The file has been changed,
 but those changes haven't been staged:
 
-~~~
-$ git status
-~~~
-{:class="in"}
-~~~
-# On branch master
-# Changes not staged for commit:
-#   (use "git add <file>..." to update what will be committed)
-#   (use "git checkout -- <file>..." to discard changes in working directory)
-#
-#	modified:   mars.txt
-#
-no changes added to commit (use "git add" and/or "git commit -a")
-~~~
-{:class="out"}
+<img src="img/git-gui-recovery02.jpg" />
 
 We can put things back the way they were
-by using `git checkout`:
+by using "Commit" -> "Revert Changes":
 
-~~~
-$ git checkout HEAD mars.txt
-$ cat mars.txt
-~~~
-{:class="in"}
-~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-~~~
-{:class="out"}
+<img src="img/git-gui-recovery03.jpg" />
 
-As you might guess from its name,
-`git checkout` checks out (i.e., restores) an old version of a file.
-In this case,
-we're telling Git that we want to recover the version of the file recorded in `HEAD`,
-which is the last saved revision.
+We're telling Git that we want to recover the version of the file recorded
+in the last saved revision.
 If we want to go back even further,
-we can use a revision identifier instead:
+we can use "Branch" -> "Checkout" and inform a revision identifier:
 
-~~~
-$ git checkout f22b25e mars.txt
-~~~
-{:class="in"}
+<img src="img/git-gui-recovery04.jpg" />
 
 It's important to remember that
 we must use the revision number that identifies the state of the repository
@@ -350,23 +252,6 @@ A common mistake is to use the revision number of
 the commit in which we made the change we're trying to get rid of:
 
 <img src="img/git-when-revisions-updated.svg" alt="When Git Updates Revision Numbers" />
-
-> #### Simplifying the Common Case
->
-> If you read the output of `git status` carefully,
-> you'll see that it includes this hint:
->
-> ~~~
-> (use "git checkout -- <file>..." to discard changes in working directory)
-> ~~~
-> {:class="in"}
->
-> As it says,
-> `git checkout` without a version identifier restores files to the state saved in `HEAD`.
-> The double dash `--` is needed to separate the names of the files being recovered
-> from the command itself:
-> without it,
-> Git would try to use the name of the file as the revision identifier.
 
 The fact that files can be reverted one by one
 tends to change the way people organize their work.
@@ -382,50 +267,22 @@ moving backward and forward in time becomes much easier.
 What if we have files that we do not want Git to track for us,
 like backup files created by our editor
 or intermediate files created during data analysis.
-Let's create a few dummy files:
+Let's create a few dummy files: `a.dat` and `b.dat` and `c.dat`.
+And see what Git says:
 
-~~~
-$ mkdir results
-$ touch a.dat b.dat c.dat results/a.out results/b.out
-~~~
-{:class="in"}
-
-and see what Git says:
-
-~~~
-$ git status
-~~~
-{:class="in"}
-~~~
-# On branch master
-# Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
-#
-#	a.dat
-#	b.dat
-#	c.dat
-#	results/
-nothing added to commit but untracked files present (use "git add" to track)
-~~~
-{:class="out"}
+<img src="img/git-gui-ignore01.jpg" />
 
 Putting these files under version control would be a waste of disk space.
 What's worse,
 having them all listed could distract us from changes that actually matter,
 so let's tell Git to ignore them.
 
-We do this by creating a file in the root directory of our project called `.gitignore`.
+We do this by creating a file in the root directory of our project called
+`.gitignore` with
 
 ~~~
-$ nano .gitignore
-$ cat .gitignore
-~~~
-{:class="in"}
-~~~
 *.dat
-results/
 ~~~
-{:class="out"}
 
 These patterns tell Git to ignore any file whose name ends in `.dat`
 and everything in the `results` directory.
@@ -433,21 +290,9 @@ and everything in the `results` directory.
 Git would continue to track them.)
 
 Once we have created this file,
-the output of `git status` is much cleaner:
+we will not be annoyed by the `*.dat` files:
 
-~~~
-$ git status
-~~~
-{:class="in"}
-~~~
-# On branch master
-# Untracked files:
-#   (use "git add <file>..." to include in what will be committed)
-#
-#	.gitignore
-nothing added to commit but untracked files present (use "git add" to track)
-~~~
-{:class="out"}
+<img src="img/git-gui-ignore02.jpg" />
 
 The only thing Git notices now is the newly-created `.gitignore` file.
 You might think we wouldn't want to track it,
@@ -455,54 +300,12 @@ but everyone we're sharing our repository with will probably want to ignore
 the same things that we're ignoring.
 Let's add and commit `.gitignore`:
 
-~~~
-$ git add .gitignore
-$ git commit -m "Add the ignore file"
-$ git status
-~~~
-{:class="in"}
-~~~
-# On branch master
-nothing to commit, working directory clean
-~~~
-{:class="out"}
+<img src="img/git-gui-ignore03.jpg" />
+
+<img src="img/git-gui-ignore04.jpg" />
 
 As a bonus,
 using `.gitignore` helps us avoid accidentally adding files to the repository that we don't want.
-
-~~~
-$ git add a.dat
-~~~
-{:class="in"}
-~~~
-The following paths are ignored by one of your .gitignore files:
-a.dat
-Use -f if you really want to add them.
-fatal: no files added
-~~~
-{:class="out"}
-
-If we really want to override our ignore settings,
-we can use `git add -f` to force Git to add something.
-We can also always see the status of ignored files if we want:
-
-~~~
-$ git status --ignored
-~~~
-{:class="in"}
-~~~
-# On branch master
-# Ignored files:
-#  (use "git add -f <file>..." to include in what will be committed)
-#
-#        a.dat
-#        b.dat
-#        c.dat
-#        results/
-
-nothing to commit, working directory clean
-~~~
-{:class="out"}
 
 <div class="keypoints" markdown="1">
 
